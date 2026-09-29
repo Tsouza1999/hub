@@ -1,0 +1,14 @@
+.sp { position: relative; width: 100%; max-width: 340px; height: 220px; background: #0b0d12; border-radius: 12px;
+  overflow: hidden; perspective: 700px; }
+.sp-scene { position: absolute; left: 50%; top: 50%; width: 0; height: 0;
+  transform-style: preserve-3d; transform: rotateX(62deg); }
+.sp-spoke { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; }
+.dot { position: absolute; top: -7px; width: 14px; height: 14px; border-radius: 50%;
+  background-color: var(--c, #55ffee); box-shadow: 0 0 10px var(--c, #55ffee);
+  animation: pulsate 0.5s infinite alternate both; }
+
+@keyframes pulsate {
+  0%   { transform: rotateX(90deg) scale(0.3) translateZ(20px); }
+  100% { transform: rotateX(90deg) scale(1) translateZ(0px); }
+}
+@media (prefers-reduced-motion: reduce) { .dot { animation: none; } }

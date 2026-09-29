@@ -1,0 +1,6 @@
+.sw { width: 56px; height: 30px; border-radius: 999px; border: 0; background: #98A2B3;
+  position: relative; transition: background .2s; }
+.sw::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px;
+  border-radius: 50%; background: #fff; transition: transform .2s; }
+.sw[aria-checked="true"] { background: #2F5BFF; }
+.sw[aria-checked="true"]::after { transform: translateX(26px); }

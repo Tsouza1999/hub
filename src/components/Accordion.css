@@ -1,0 +1,5 @@
+.acc { border: 1px solid #D9DFE9; border-radius: 12px; overflow: hidden; max-width: 340px; }
+.acc-i + .acc-i { border-top: 1px solid #D9DFE9; }
+.acc-h { width: 100%; text-align: left; background: none; border: 0; padding: 12px 14px;
+  display: flex; justify-content: space-between; font-weight: 500; }
+.acc-b { padding: 0 14px 12px; color: #5B6778; }
