@@ -1,0 +1,18 @@
+/* tamanhos em cqw: o componente se adapta a qualquer largura */
+.cc { container-type: size; width: 520px; max-width: 100%; height: 340px; display: flex; flex-direction: column;
+  overflow: hidden; border-radius: 12px; transition: background .5s, color .5s; }
+.cc-top { display: flex; justify-content: space-between; padding: 4cqw 5cqw 0; font-size: 3cqw; }
+.cc-vp { flex: 1; overflow: hidden; display: flex; align-items: center; touch-action: pan-y; }
+.cc-trk { display: flex; width: 100%; transition: transform .5s cubic-bezier(.7, 0, .2, 1); }
+.cc-sl { min-width: 100%; padding: 0 5cqw; display: grid; grid-template-columns: 1.2fr 1fr; gap: 4cqw; align-items: center; }
+.cc h3 { margin: 0 0 2cqw; font-weight: 200; letter-spacing: -.04em; line-height: 1; font-size: 9cqw; }
+.cc p { margin: 0; font-size: 2.8cqw; line-height: 1.4; }
+.cc-box { aspect-ratio: 4 / 3; display: grid; place-items: center; background: #fff; color: #1a1a1a;
+  font-size: 12cqw; font-weight: 200; border-radius: 2cqw; }
+.cc-ctl { display: flex; justify-content: space-between; align-items: center; gap: 2cqw; padding: 0 5cqw 4cqw; }
+.cc-ctl button { font: inherit; color: inherit; background: transparent; border: 1px solid currentColor;
+  cursor: pointer; font-size: 2.6cqw; padding: 1cqw 2.4cqw; }
+.cc-ctl > div:last-child button { margin-left: 1cqw; font-size: 3.4cqw; }
+.cc-pills { display: flex; gap: 1.5cqw; overflow: hidden; }
+.cc-pill[aria-current="true"] { background: var(--fg); color: var(--bg); }
+@media (prefers-reduced-motion: reduce) { .cc, .cc-trk { transition: none; } }

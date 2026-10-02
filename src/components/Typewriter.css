@@ -1,0 +1,6 @@
+.tw { margin: 0; font-size: 1.7rem; font-weight: 200; letter-spacing: -.02em; }
+.tw b { font-weight: 700; }
+.tw-c { display: inline-block; width: 2px; height: 1.1em; margin-left: 3px; background: currentColor; vertical-align: -.15em;
+  animation: tw-blink 1s steps(1) infinite; }
+@keyframes tw-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .tw-c { animation: none; } }

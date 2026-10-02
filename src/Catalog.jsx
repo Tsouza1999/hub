@@ -1,94 +1,83 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import CATALOG from "./data/catalog.jsx";
-import Detail from "./Detail.jsx";
+import Project from "./Project.jsx";
 
-// bg = fundo do slide, fg = cor do texto
+// bg = cor do quadro de preview, fg = cor do texto
 const TONES = [
-  { bg: "#9c8d5c", fg: "#fffcfc" },
-  { bg: "#1a2923", fg: "#ffffff" },
-  { bg: "#10183d", fg: "#ffffff" },
+  { bg: "#FFD23F", fg: "#1a1a1a" },
+  { bg: "#3B2314", fg: "#ffffff" },
+  { bg: "#1B2A6B", fg: "#ffffff" },
   { bg: "#4A1D6B", fg: "#ffffff" },
-  { bg: "#585102", fg: "#ffffff" },
+  { bg: "#5A4336", fg: "#ffffff" },
   { bg: "#1F2937", fg: "#ffffff" },
   { bg: "#0F3D3A", fg: "#ffffff" },
+  { bg: "#5A1F2B", fg: "#ffffff" },
 ];
 
+function Toggle({ value, set, options }) {
+  return (
+    <div>
+      {options.map(([v, label]) => (
+        <button key={v} aria-pressed={value === v} onClick={() => set(v)}>{label}</button>
+      ))}
+    </div>
+  );
+}
+
 export default function Catalog({ onBack }) {
-  const [i, setI] = useState(0);
+  const [pct, setPct] = useState(0);
+  const [view, setView] = useState("grid");   // grid | gallery
+  const [mode, setMode] = useState("normal"); // normal | 3d
   const [sel, setSel] = useState(null);
-  const startX = useRef(0);
-  const n = CATALOG.length;
-  const tone = TONES[i % TONES.length];
-  const go = (d) => setI((v) => (v + d + n) % n);
+  const ready = pct >= 100;
 
-  // título fixo do topo fica escuro quando o fundo do slide é claro
+  // tela de carregamento com contador de porcentagem
   useEffect(() => {
-    const top = document.querySelector(".top");
-    top.classList.toggle("dark", tone.fg !== "#ffffff");
-    return () => top.classList.remove("dark");
-  }, [tone.fg]);
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { setPct(100); return; }
+    const id = setInterval(() => setPct((p) => (p >= 100 ? 100 : Math.min(100, p + 3 + Math.random() * 7))), 45);
+    return () => clearInterval(id);
+  }, []);
 
-  useEffect(() => {
-    const onKey = (e) => {
-      if (sel) return;
-      if (e.key === "ArrowRight") go(1);
-      if (e.key === "ArrowLeft") go(-1);
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [sel]);
+  const tone = (i) => TONES[i % TONES.length];
 
   return (
-    <>
-    <div
-      className="cv" style={{ background: tone.bg, color: tone.fg, "--fg": tone.fg, "--bg": tone.bg }}
-      onTouchStart={(e) => { startX.current = e.touches[0].clientX; }}
-      onTouchEnd={(e) => {
-        const d = e.changedTouches[0].clientX - startX.current;
-        if (Math.abs(d) > 60) go(d < 0 ? 1 : -1);
-      }}
-    >
-      <div className="cvh">
-        <button className="btn" onClick={onBack}>Voltar</button>
-        <h2>Catálogo</h2>
-        <span aria-live="polite"><b>{i + 1}</b> / {n}</span>
-      </div>
+    <div className="cat">
+      <div className={"ld" + (ready ? " off" : "")} aria-hidden={ready}>{Math.floor(pct)}%</div>
+      <button className="bk" onClick={onBack}>← Início</button>
 
-      <div className="vp">
-        <div className="trk" style={{ transform: "translateX(-" + i * 100 + "%)" }}>
-          {CATALOG.map((it, k) => (
-            <div className="sl" key={it.id} aria-hidden={k !== i} inert={k === i ? undefined : ""}>
-              <div className="in split">
-                <div>
-                  <h2>{it.title}.</h2>
-                  <p>{it.desc}</p>
-                  <div className="facts">
-                    <div><b>{it.cat}</b>Categoria</div>
-                    <div><b>{it.tags[0]}</b>Recurso principal</div>
-                  </div>
-                  <button className="btn solid" onClick={() => setSel(it)}>Ver código</button>
+      <main className={"gl " + view + (mode === "3d" ? " tilt" : "")}>
+        {CATALOG.map((it, i) => {
+          const t = tone(i);
+          const open = () => setSel({ it, t });
+          return (
+            <section className="row" key={it.id}>
+              <div className="rl"><span>{it.title}</span><button onClick={open}>Abrir ↗</button></div>
+              <div className="strip">
+                <div className="fw" onClick={open}>
+                  <span className="fnum">1</span>
+                  <div className="fr" style={{ background: t.bg, color: t.fg }}><div className="sc">{it.preview()}</div></div>
                 </div>
-                <div className="pv">{it.preview()}</div>
+                <div className="fw" onClick={open}>
+                  <span className="fnum">2</span>
+                  <div className="fr about"><small>{it.cat}</small><h3>{it.title}.</h3><p>{it.desc}</p></div>
+                </div>
+                <div className="fw" onClick={open}>
+                  <span className="fnum">3</span>
+                  <div className="fr code"><pre>{it.code.split("\n").slice(0, 16).join("\n")}</pre></div>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            </section>
+          );
+        })}
+        <div className="cf"><span>©2026 Hub de componentes</span><button onClick={onBack}>Voltar ao início</button></div>
+      </main>
+
+      <div className="tg">
+        <Toggle value={view} set={setView} options={[["grid", "Grade"], ["gallery", "Galeria"]]} />
+        <Toggle value={mode} set={setMode} options={[["normal", "Normal"], ["3d", "3D"]]} />
       </div>
 
-      <div className="ctl">
-        <div className="pills">
-          {CATALOG.map((it, k) => (
-            <button key={it.id} className="pill" aria-current={k === i} onClick={() => setI(k)}>{it.title}</button>
-          ))}
-        </div>
-        <div className="arrows">
-          <button className="btn" aria-label="Componente anterior" onClick={() => go(-1)}>‹</button>
-          <button className="btn" aria-label="Próximo componente" onClick={() => go(1)}>›</button>
-        </div>
-      </div>
-
+      {sel && <Project item={sel.it} tone={sel.t} onClose={() => setSel(null)} />}
     </div>
-    {sel && <Detail item={sel} onClose={() => setSel(null)} />}
-    </>
   );
 }

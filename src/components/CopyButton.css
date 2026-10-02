@@ -1,0 +1,4 @@
+.cp { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 340px; max-width: 100%;
+  background: #0d1117; color: #cfe0ff; padding: 10px 10px 10px 16px; border-radius: 10px; }
+.cp code { font: 400 .85rem "JetBrains Mono", monospace; overflow-x: auto; white-space: nowrap; }
+.cp button { padding: 7px 14px; border: 0; border-radius: 7px; background: #fff; color: #111; font: inherit; font-weight: 700; cursor: pointer; flex: none; }

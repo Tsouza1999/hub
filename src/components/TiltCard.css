@@ -1,0 +1,6 @@
+.tl { perspective: 700px; padding: 16px; }
+.tl-card { position: relative; width: 240px; max-width: 100%; padding: 22px; border-radius: 16px; overflow: hidden;
+  background: linear-gradient(135deg, #2b3a8f, #6c4dff); color: #fff; transition: transform .15s ease-out; }
+.tl-card h3 { margin: 0 0 6px; font-weight: 700; }
+.tl-card p { margin: 0; font-size: .9rem; }
+.tl-glare { position: absolute; inset: 0; pointer-events: none; }

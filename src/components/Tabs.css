@@ -1,0 +1,6 @@
+.tb { width: 320px; max-width: 100%; }
+.tb-list { position: relative; display: flex; border-bottom: 1px solid #D9DFE9; }
+.tb-tab { flex: 1; background: none; border: 0; padding: 10px 0; cursor: pointer; color: #5B6778; font: inherit; }
+.tb-tab.on { color: #111; font-weight: 700; }
+.tb-bar { position: absolute; left: 0; bottom: -1px; height: 2px; background: #111; transition: transform .3s; }
+.tb-panel { padding: 14px 2px; font-size: .95rem; }

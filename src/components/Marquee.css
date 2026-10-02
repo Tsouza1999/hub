@@ -1,0 +1,9 @@
+.mq { width: 340px; max-width: 100%; overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.mq-track { display: flex; width: max-content; animation: mq-run linear infinite; }
+.mq:hover .mq-track { animation-play-state: paused; }
+.mq span { padding: 0 18px; font-size: 1.6rem; font-weight: 200; white-space: nowrap; }
+.mq span::after { content: "•"; margin-left: 36px; opacity: .4; }
+@keyframes mq-run { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .mq-track { animation: none; } }

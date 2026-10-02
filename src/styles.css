@@ -60,7 +60,6 @@ pre{margin:0;background:var(--ink);color:#e6edf0;padding:18px;overflow-x:auto;fo
 .arrows .btn{width:52px;padding:12px 0;font-size:1.3rem}
 @media(prefers-reduced-motion:reduce){.trk,.cv{transition:none}}
 
-.top.dark{color:#1a1a1a;mix-blend-mode:normal}
 /* catálogo: cores do texto e dos botões seguem o slide (--fg / --bg) */
 .cv :focus-visible{outline-color:currentColor}
 .cv .btn:hover{background:var(--fg);color:var(--bg);border-color:var(--fg)}
@@ -68,3 +67,113 @@ pre{margin:0;background:var(--ink);color:#e6edf0;padding:18px;overflow-x:auto;fo
 .cv .btn.solid:hover{background:transparent;color:var(--fg)}
 .cv .pill{border-color:currentColor;color:inherit}
 .cv .pill[aria-current=true]{background:var(--fg);color:var(--bg)}
+
+/* ---- ajustes para celular / Safari ---- */
+html{-webkit-text-size-adjust:100%}
+body{overflow-x:clip;-webkit-tap-highlight-color:transparent}
+button{touch-action:manipulation}
+/* altura estável (a barra de endereço do Safari não muda o layout) */
+@supports (height:100svh){.stage{height:100svh}.panel{min-height:100svh}.cv{min-height:100svh}}
+/* rótulo fixo sem mix-blend-mode (instável no Safari) */
+.top{mix-blend-mode:normal;color:#1a1a1a;background:#fff;right:auto;width:max-content;padding:6px 12px;margin:calc(10px + env(safe-area-inset-top,0px)) 0 0 16px}
+/* catálogo: controles sempre visíveis no rodapé */
+.cv{padding-bottom:0}
+.vp{touch-action:pan-y}
+.ctl{position:sticky;bottom:0;z-index:5;background:var(--bg);padding:12px 24px calc(12px + env(safe-area-inset-bottom,0px))}
+.overlay,.sheet{overscroll-behavior:contain}
+@supports (height:100dvh){.sheet{max-height:92dvh}}
+@media(max-width:760px){.btn{padding:14px 22px}.pill{padding:8px 14px}.arrows .btn{width:56px;padding:14px 0}}
+
+/* ---- catálogo no estilo galeria (fundo preto, quadros numerados) ---- */
+.cat{background:#000;color:#fff;min-height:100svh;padding:calc(64px + env(safe-area-inset-top,0px)) 0 96px;overflow-x:clip}
+.ld{position:fixed;inset:0;z-index:300;background:#000;color:#fff;display:flex;align-items:flex-end;padding:24px;font-size:clamp(4rem,22vw,16rem);font-weight:200;letter-spacing:-.05em;line-height:.8;transition:opacity .5s}
+.ld.off{opacity:0;pointer-events:none}
+.bk{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:16px;z-index:110;background:#fff;color:#111;border:0;padding:6px 12px;font-weight:700}
+.gl{transition:transform .8s cubic-bezier(.7,0,.2,1);transform-origin:50% 0}
+.gl.tilt{transform:perspective(1000px) rotateX(30deg) scale(.92)}
+.row{padding:28px 0 12px;transition:opacity .35s}
+@media(hover:hover){.gl:has(.row:hover) .row:not(:hover){opacity:.22}}
+.rl{display:flex;justify-content:space-between;padding:0 24px 10px}
+.rl button,.cf button{background:none;border:0;color:inherit;font:inherit;opacity:.6;cursor:pointer}
+.strip{display:flex;gap:16px;overflow-x:auto;padding:0 24px 8px;scroll-snap-type:x mandatory;scroll-padding-left:24px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.strip::-webkit-scrollbar{display:none}
+.fw{flex:none;width:clamp(240px,30vw,360px);scroll-snap-align:start;cursor:pointer}
+.gl.gallery .fw{width:clamp(300px,72vw,620px)}
+.fnum{display:block;text-align:right;font-size:.8rem;opacity:.6;padding-bottom:6px}
+.fr{aspect-ratio:4/3;overflow:hidden;position:relative;display:grid;place-items:center}
+.fr>*{pointer-events:none}
+.sc{transform:scale(.72)}
+.gl.gallery .sc{transform:scale(1.15)}
+.fr.about{background:#fff;color:#111;display:block;padding:18px}
+.fr.about small{opacity:.6}
+.fr.about h3{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:200;letter-spacing:-.03em;line-height:1;margin:6px 0 10px}
+.fr.about p{font-size:.8rem;margin:0;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.fr.code{background:#0d1117;color:#cfe0ff;display:block;padding:14px}
+.fr.code pre{margin:0;padding:0;background:none;color:inherit;max-height:none;overflow:hidden;font:400 .62rem/1.5 'JetBrains Mono',monospace}
+.cf{display:flex;justify-content:space-between;padding:56px 24px 0;opacity:.7}
+.tg{position:fixed;right:16px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:120;display:flex;gap:18px;font-size:.8rem;background:rgba(0,0,0,.65);padding:4px 8px}
+.tg button{background:none;border:0;color:#fff;opacity:.45;font:inherit;padding:6px 4px;margin-left:2px;cursor:pointer}
+.tg button[aria-pressed=true]{opacity:1}
+/* página do projeto */
+.pj{position:fixed;inset:0;z-index:200;background:#000;color:#fff;overflow-y:auto;overscroll-behavior:contain;padding:calc(72px + env(safe-area-inset-top,0px)) 24px 96px}
+.pjh{position:fixed;top:0;left:0;right:0;z-index:2;display:flex;justify-content:space-between;padding:calc(16px + env(safe-area-inset-top,0px)) 24px 12px;background:#000}
+.pjh button{background:none;border:0;color:#fff;font:inherit;cursor:pointer;padding:0}
+.pjd{max-width:56ch;font-size:1.1rem;margin:0 0 28px}
+.meta{max-width:560px;margin-bottom:48px}
+.meta div{display:grid;grid-template-columns:28px 120px 1fr;padding:3px 0}
+.meta span:first-child{opacity:.5}
+.cw{max-width:960px;margin:0 auto 56px;cursor:pointer}
+.pc{margin:0;overflow:hidden}
+.pc-pv{min-height:min(64vh,480px);display:grid;place-items:center;padding:32px}
+.pc-ab{background:#fff;color:#111;padding:clamp(24px,5vw,56px)}
+.pc-ab h2{font-size:clamp(2rem,6vw,4.5rem);font-weight:200;letter-spacing:-.04em;line-height:1;margin:0 0 18px}
+.pc-ab p{margin:0;max-width:52ch;font-size:1.1rem}
+.pc-cd{background:#0d1117}
+.pc-cd pre{background:none;max-height:70vh;overflow:auto}
+.fo{position:fixed;inset:0;z-index:260;background:rgba(0,0,0,.88);display:grid;place-items:center;padding:24px;overflow:auto}
+.fi{width:min(1000px,100%)}
+.cur{position:fixed;left:0;top:0;z-index:300;pointer-events:none;background:#fff;color:#000;font-size:.8rem;padding:2px 10px;border-radius:99px}
+.cur:empty{display:none}
+@media(hover:none){.cur{display:none}}
+
+/* toque: alvos maiores e sem efeitos de hover */
+@media(hover:none){.rl button,.cf button{padding:12px 0 12px 16px}.rl{align-items:center}}
+@media(max-width:480px){.fw{width:78vw}.gl.gallery .fw{width:88vw}.pj{padding-left:18px;padding-right:18px}.pjh{padding-left:18px;padding-right:18px}.meta div{grid-template-columns:24px 96px 1fr}}
+/* previews sobre cartão branco (legíveis em qualquer cor de fundo) */
+.sc{background:#fff;color:#1a1a1a;padding:20px;border-radius:12px}
+.pvbox{background:#fff;color:#1a1a1a;padding:24px;border-radius:12px;max-width:100%}
+
+/* ---- telas largas / ultrawide ---- */
+.gl{--g:max(24px,calc((100vw - 2200px)/2))}
+.rl{padding-left:var(--g);padding-right:var(--g)}
+.strip{padding-left:var(--g);padding-right:var(--g);scroll-padding-left:var(--g)}
+.cf{padding-left:var(--g);padding-right:var(--g)}
+@media(min-width:1200px){
+  .fw{width:clamp(300px,24vw,520px)}
+  .gl.gallery .fw{width:clamp(420px,40vw,900px)}
+  .sc{transform:scale(.95)}
+  .gl.gallery .sc{transform:scale(1.4)}
+  .rl{font-size:1.15rem}
+}
+/* página do projeto: tudo alinhado numa coluna central */
+.pj{--gut:max(24px,calc((100vw - 1180px)/2))}
+.pj,.pjh{padding-left:var(--gut);padding-right:var(--gut)}
+.cw{max-width:none}
+.pj .cw:last-of-type{margin-bottom:0}
+@media(min-width:1200px){.pjd{font-size:1.25rem}.pc-pv{min-height:min(60vh,560px)}}
+.fr.code pre{overflow:clip;scrollbar-width:none}
+@media(min-width:2000px){
+  .fw{width:clamp(300px,24vw,700px)}
+  .gl.gallery .fw{width:clamp(420px,40vw,1100px)}
+  .sc{transform:scale(1.25)}
+  .gl.gallery .sc{transform:scale(1.7)}
+}
+
+/* Zoom no scroll e Pulso 3D já têm fundo próprio: sem cartão branco, preenchendo o quadro */
+.pvbox:has(.zs,.sp,.cc){background:none;padding:0;border-radius:0}
+.fr{container-type:size}
+.sc:has(.zs,.sp,.cc){transform:none!important;background:none;padding:0;border-radius:0;width:100%;height:100%;display:grid;place-items:center}
+.fr .zs{--h:100cqh;width:100cqw;max-width:none;border-radius:0}
+.fr .sp{width:100cqw;height:100cqh;max-width:none;border-radius:0}
+.fr .cc{width:100cqw;height:100cqh;max-width:none;border-radius:0}
+.fr.code pre{width:100%;margin:0;text-align:left;position:relative;left:0}

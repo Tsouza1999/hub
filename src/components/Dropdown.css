@@ -1,0 +1,8 @@
+.dd { position: relative; width: 240px; max-width: 100%; }
+.dd-btn { width: 100%; display: flex; justify-content: space-between; padding: 10px 14px; border: 1px solid #cfd6e3;
+  background: #fff; border-radius: 8px; font: inherit; cursor: pointer; }
+.dd-list { position: absolute; left: 0; right: 0; top: calc(100% + 6px); margin: 0; padding: 4px; list-style: none;
+  background: #fff; border: 1px solid #cfd6e3; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.12); z-index: 5; }
+.dd-list li { padding: 8px 10px; border-radius: 6px; cursor: pointer; }
+.dd-list li:hover { background: #eef1f6; }
+.dd-list li[aria-selected="true"] { font-weight: 700; }

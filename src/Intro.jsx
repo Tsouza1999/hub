@@ -3,6 +3,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+// evita saltos quando a barra de endereço do celular aparece/some
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 const PANELS = [
   { bg: "#ffffff", fg: "#1a1a1a", t: "Veja funcionando.", p: "Cada componente aparece rodando de verdade, do jeito que vai ficar no seu projeto. Sem imagem parada, sem adivinhar.", f: [["Preview ao vivo", "Clique e teste"], ["Sem instalar nada", "É só abrir"]] },
@@ -24,10 +26,10 @@ export default function Intro({ onOpen }) {
     ps.forEach((p, i) => {
       p.style.zIndex = i + 1;
       if (i < ps.length - 1) {
-        ScrollTrigger.create({ trigger: p, start: "top top", end: "+=100%", pin: true, pinSpacing: false });
-        // só o primeiro painel (claro) escurece; os de fundo escuro mantêm o texto branco
+        ScrollTrigger.create({ trigger: p, start: "top top", end: "+=100%", pin: true, pinSpacing: false, anticipatePin: 1 });
+        // só o primeiro painel (claro) esmaece (opacity é mais leve que filter no Safari); os de fundo escuro mantêm o texto branco
         gsap.to(p.firstElementChild, {
-          scale: 0.92, ...(i === 0 ? { filter: "brightness(.55)" } : {}), ease: "none",
+          scale: 0.92, ...(i === 0 ? { opacity: 0.55 } : {}), ease: "none",
           scrollTrigger: { trigger: p, start: "top top", end: "+=100%", scrub: true },
         });
       }

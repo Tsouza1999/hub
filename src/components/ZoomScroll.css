@@ -1,12 +1,10 @@
-.zs { --h: 260px; height: var(--h); width: 100%; max-width: 360px; overflow-y: auto; background: #0b0d12; border-radius: 12px; }
+.zs { --h: 260px; height: var(--h); width: 360px; max-width: 100%; overflow-y: auto; background: #0b0d12; border-radius: 12px; }
 .zs-track { height: calc(var(--h) * 3); }
 .zs-stage { position: sticky; top: 0; height: var(--h); overflow: hidden; }
-.zs-hero { position: absolute; inset: 0;
-  background: radial-gradient(circle at 50% 62%, #ffd9a0 0 8%, transparent 9%), linear-gradient(#f28c5b, #7b5cd6 60%, #1d2350); }
-.zs-next { position: absolute; inset: 0; background: linear-gradient(135deg, #ffc7ff, #3d4be0); }
-/* moldura escura com janela circular: cresce com o scroll */
-.zs-frame { position: absolute; inset: 0; background: radial-gradient(circle, transparent 0 24%, #0b0d12 24.5%);
-  will-change: transform; pointer-events: none; }
+/* a imagem só aparece dentro do círculo; o círculo cresce com o scroll */
+.zs-photo { position: absolute; inset: 0; will-change: clip-path; }
+.zs-in { position: absolute; inset: 0; will-change: transform; }
+.zs-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .zs-t { position: absolute; font: 700 1.5rem/1 Georgia, serif; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.5); pointer-events: none; }
 .zs-t.a { top: 18px; left: 16px; }
 .zs-t.b { bottom: 18px; right: 16px; }
